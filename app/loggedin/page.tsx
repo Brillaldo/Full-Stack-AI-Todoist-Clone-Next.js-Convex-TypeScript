@@ -1,5 +1,5 @@
-import { signInAction } from "@/actions/auth-action";
 import Tasks from "@/components/todovex/task";
+import Userprofile from "@/components/todovex/user-profile";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -7,16 +7,11 @@ export default function Home() {
   return (
     
       <main className="flex -screen flex-col items-center justify-between p-24">
-        <h1>Login</h1>
-        
-     
+        <h1>Todovex</h1>
+        <Userprofile/>
+      <Tasks/>
 
-      <form action={signInAction}>
-
-      <Button variant={"outline"}>Log in</Button>
-       
-
-      </form>
+      
       </main>
       
     
