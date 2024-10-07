@@ -1,6 +1,16 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+Important: <br>
+You need to install a extension called `Encrypt-Decrypt` for decode the .env file.
+### Steps:
+1. Copy the .env.encrypted and renamed to .env
+2. Select all the info and press right button and select `Set Password` option.
+3. Type the password. 
+4. And select **Decode using `AES Encryption`** option.
+5. And done. Now you can update your keys and encode using `AES Encryption`.
+
+If you want to encode .env file select **Encode using `AES Encryption`**.
 
 First, run the development server:
 
