@@ -1,16 +1,28 @@
 'use client'; // Añadir esta línea al principio del archivo
 
 import { api } from "@/convex/_generated/api";
+import { Doc, Id } from "@/convex/_generated/dataModel";
 import { Checkbox } from "@radix-ui/react-checkbox";
-import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@radix-ui/react-dialog";
 import clsx from "clsx";
 import { useQuery } from "convex/react";
+import AddTaskDialog from "../add-tasks/add-task-dialog";
 
-export default function Task({taskName, _id, isCompleted,
-  handleOnChange}) {
+export default function Task({
+  data, 
+  isCompleted,
+  handleOnChange
+}: {
+  data: Doc<'todos'>;
+  _id: Id<"todos">;
+  isCompleted: boolean;
+  handleOnChange: any;
+}) {
+  const {taskName} = data;
+
   return (
     <div
-      key={_id}
+      key={data._id}
       className="flex items-center space-x-2 border-b-2 p-2 border-gray-100 animate-in fade-in"
     >
       <Dialog>
@@ -40,7 +52,7 @@ export default function Task({taskName, _id, isCompleted,
               </div>
             </DialogTrigger>
           </div>
-          
+          <AddTaskDialog data={data}/>
         </div>
       </Dialog>
     </div>

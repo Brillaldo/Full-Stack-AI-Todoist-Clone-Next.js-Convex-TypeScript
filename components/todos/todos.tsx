@@ -5,7 +5,8 @@ import { api } from '@/convex/_generated/api';
 import { Doc } from '@/convex/_generated/dataModel';
 import {  useToast } from '@/hooks/use-toast';
 
-export default function Todos({items}) {
+export default function Todos({items}:
+    {items: Array<Doc<"todos">>}) {
 
     const {toast}= useToast();
     const checkATodo = useMutation(api.todos.checkATodo);
@@ -26,10 +27,12 @@ export default function Todos({items}) {
         }
 
     };
-     return items.map((task, idx) => (
+     return items.map((task: Doc<"todos">, idx:
+        number) => (
      <Task 
      key={task._id}
-     {...task}
+     data={task}
+     isCompleted={task.isCompleted}
      handleOnChange={()=> handleOnChangeTodo(task)}
      />
      ));
