@@ -2,6 +2,7 @@ import { Id } from "./_generated/dataModel";
 import { query, mutation, action } from "./_generated/server";
 import { v } from "convex/values";
 import { handleUserId } from "./auth";
+import { getEmbeddingsWithAI } from "./openai";
 import { api } from "./_generated/api";
 
 export const get = query({
@@ -101,6 +102,33 @@ export const createASubTodo = mutation({
   },
 });
 
+export const createSubTodoAndEmbeddings = action({
+  args: {
+    taskName: v.string(),
+    description: v.optional(v.string()),
+    priority: v.number(),
+    dueDate: v.number(),
+    projectId: v.id("projects"),
+    labelId: v.id("labels"),
+    parentId: v.id("todos"),
+  },
+  handler: async (
+    ctx,
+    { taskName, description, priority, dueDate, projectId, labelId, parentId }
+  ) => {
+    const embedding = await getEmbeddingsWithAI(taskName);
+    await ctx.runMutation(api.subTodos.createASubTodo, {
+      taskName,
+      description,
+      priority,
+      dueDate,
+      projectId,
+      labelId,
+      parentId,
+      embedding,
+    });
+  },
+});
 
 export const completedSubTodos = query({
   args: {
